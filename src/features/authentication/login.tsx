@@ -1,8 +1,6 @@
-import { loginFields } from '../../constants/formFields.ts';
-import Input from '../Input';
 import { ChangeEvent, useState } from 'react';
-import FormExtra from '../FormExtra';
-import FormAction from '../FormAction';
+import { loginFields, onLogin } from './helpers';
+import { FormAction, FormExtra, Input } from '../../components';
 
 interface FieldState {
   [key: string]: string;
@@ -23,28 +21,7 @@ export default function Login() {
 
   const handleSubmit = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    authenticateUser();
-  };
-
-  const authenticateUser = async () => {
-    const { email = 'dat_thai@gmail.com', password = 'quang123' } = loginState;
-
-    const response = await fetch('http://localhost:8989/api/auth/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*', // 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-      }, // mode: 'no-cors',
-      body: JSON.stringify({
-        user: {
-          email,
-          password,
-        },
-      }),
-    });
-
-    console.log('Log', response);
+    onLogin({});
   };
 
   return (

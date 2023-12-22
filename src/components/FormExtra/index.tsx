@@ -8,7 +8,6 @@ export default function FormExtra() {
           name="remember-me"
           className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded cursor-pointer"
         />
-
         <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900 cursor-pointer">
           Remember me
         </label>

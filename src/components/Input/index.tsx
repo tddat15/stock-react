@@ -1,19 +1,20 @@
 interface InputProps {
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  value?: string;
-  name: string;
-  type: string;
+  className?: string;
   isRequired?: boolean;
+  name: string;
   placeholder?: string;
-  // customClass?: string;
+  type: string;
+  value?: string;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function Input({
+  className,
   isRequired = false,
   name,
   placeholder,
   type,
-  value,
+  value = '',
   handleChange,
 }: InputProps): JSX.Element {
   const fixedInputClass =
@@ -28,7 +29,7 @@ export default function Input({
         id={name}
         type={type}
         required={isRequired}
-        className={fixedInputClass}
+        className={fixedInputClass + className}
         placeholder={placeholder}
       />
     </div>

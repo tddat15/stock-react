@@ -1,7 +1,6 @@
-import { signupFields } from '../../constants/formFields.ts';
 import React, { useState } from 'react';
-import FormAction from '../FormAction';
-import Input from '../Input';
+import { signupFields } from './helpers';
+import { FormAction, Input } from '../../components';
 
 interface FieldState {
   [key: string]: string;
@@ -35,9 +34,9 @@ export default function Signup() {
             key={field.id}
             handleChange={handleChange}
             value={signupState[field.id]}
-            labelText={field.labelText}
-            labelFor={field.labelFor}
-            id={field.id}
+            // labelText={field.labelText}
+            // labelFor={field.labelFor}
+            // id={field.id}
             name={field.name}
             type={field.type}
             isRequired={field.isRequired}
