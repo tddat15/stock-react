@@ -1,6 +1,9 @@
 import { ChangeEvent, useState } from 'react';
 import { loginFields, onLogin } from './helpers';
 import { FormAction, FormExtra, Input } from '../../components';
+import { AuthResponse } from './helpers/authentication.service.ts';
+import { setCookie } from '../../utils/sesstion.ts';
+import { useNavigate } from 'react-router-dom';
 
 interface FieldState {
   [key: string]: string;
@@ -11,6 +14,7 @@ const fieldsState: FieldState = {};
 fields.forEach((field) => (fieldsState[field.value] = ''));
 
 export default function Login() {
+  const navigate = useNavigate();
   const [loginState, setLoginState] = useState(fieldsState);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setLoginState({
@@ -19,9 +23,19 @@ export default function Login() {
     });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    onLogin({});
+    try {
+      const response: AuthResponse = await onLogin({
+        email: loginState.email,
+        password: loginState.password,
+      });
+
+      setCookie('accessToken', response.credentials.accessToken);
+      navigate('/home');
+    } catch (err) {
+      console.log('Login Failed!');
+    }
   };
 
   return (
