@@ -3,6 +3,8 @@ import Input from '../Input';
 import { ChangeEvent, useState } from 'react';
 import FormExtra from '../FormExtra';
 import FormAction from '../FormAction';
+import { AuthApi } from '../../api';
+import { useNavigate } from 'react-router-dom';
 
 interface FieldState {
   [key: string]: string;
@@ -13,6 +15,9 @@ const fieldsState: FieldState = {};
 fields.forEach((field) => (fieldsState[field.value] = ''));
 
 export default function Login() {
+  const authApi = new AuthApi();
+  const navigate = useNavigate();
+
   const [loginState, setLoginState] = useState(fieldsState);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setLoginState({
@@ -27,24 +32,25 @@ export default function Login() {
   };
 
   const authenticateUser = async () => {
-    const { email = 'dat_thai@gmail.com', password = 'quang123' } = loginState;
+    try {
+      const { email, password } = loginState;
 
-    const response = await fetch('http://localhost:8989/api/auth/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*', // 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-      }, // mode: 'no-cors',
-      body: JSON.stringify({
-        user: {
-          email,
-          password,
-        },
-      }),
-    });
+      const response = await authApi.loginApi({
+        email,
+        password,
+      });
 
-    console.log('Log', response);
+      document.cookie = `accessToken=${response.data.credentials.accessToken}; path=/`;
+
+      console.log('Log', response);
+
+      if (response.status === 200) {
+        // Redirect to /home
+        navigate('/home');
+      }
+    } catch (error) {
+      console.error('Error during authentication:', error);
+    }
   };
 
   return (
