@@ -1,7 +1,6 @@
-import { signupFields } from '../../constants/formFields.ts';
 import React, { useState } from 'react';
-import FormAction from '../FormAction';
-import Input from '../Input';
+import { signupFields } from './helpers';
+import { FormAction, Input } from '../../components';
 
 interface FieldState {
   [key: string]: string;
@@ -25,27 +24,7 @@ export default function Signup() {
   };
 
   //handle Signup API Integration here
-  const createAccount = async () => {
-    //TODO
-    const { email = 'dat_thai@gmail.com', password = 'quang123' } = signupState;
-
-    const response = await fetch('http://localhost:8989/api/auth/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-      body: JSON.stringify({
-        user: {
-          email,
-          password,
-        },
-      }),
-    });
-
-    console.log('Log', response);
-  };
+  const createAccount = () => {};
 
   return (
     <form className="mt-8 space-y-6">
@@ -53,12 +32,15 @@ export default function Signup() {
         {fields.map((field) => (
           <Input
             key={field.id}
+            handleChange={handleChange}
             value={signupState[field.id]}
+            // labelText={field.labelText}
+            // labelFor={field.labelFor}
+            // id={field.id}
             name={field.name}
             type={field.type}
             isRequired={field.isRequired}
             placeholder={field.placeholder}
-            handleChange={handleChange}
           />
         ))}
         <FormAction handleSubmit={handleSubmit} text="Signup" />
