@@ -1,16 +1,9 @@
-import { Header } from '../components';
-import { Login } from '../features/authentication';
+import Layout from '../layout/layout.tsx';
 
-export default function LoginPage() {
+export default function ConversationPage() {
   return (
     <>
-      <Header
-        heading="Login to your account"
-        paragraph="Don't have an account yet? "
-        linkName="Signup"
-        linkUrl="/signup"
-      />
-      <Login />
+      <Layout />
     </>
   );
 }
