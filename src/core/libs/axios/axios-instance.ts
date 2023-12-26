@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { removeCookieToken } from '../../../utils/sesstion';
+import { getAccessToken, removeCookieToken } from '../../../utils/sesstion';
 
 export type Callback<T> = (arg?: T) => T;
 
@@ -7,6 +7,7 @@ export const axiosInstance = axios.create();
 
 axiosInstance.interceptors.request.use(
   async (config) => {
+    config.headers['Authorization'] = `Bearer ${getAccessToken()}`;
     const configure = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
