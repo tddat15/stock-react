@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { getAccessToken, removeCookieToken } from '../../../utils/sesstion';
+import { addCookieToken, getAccessToken } from '../../../utils/sesstion';
+import { onRefreshToken } from '../../../features/authentication/helpers/authentication.service.ts';
 
 export type Callback<T> = (arg?: T) => T;
 
@@ -22,10 +23,10 @@ axiosInstance.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
+  async (error) => {
     if (error.response && error.response.status === 401) {
-      removeCookieToken();
-      window.location.reload();
+      const newToken = await onRefreshToken();
+      addCookieToken(newToken);
     }
 
     return Promise.reject(error);

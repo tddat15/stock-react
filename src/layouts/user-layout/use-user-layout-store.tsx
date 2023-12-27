@@ -1,5 +1,5 @@
 import React from 'react';
-import { IUserLayoutStore, IMenuItem, ISidebar } from './service';
+import { ISidebar, IUserLayoutStore } from './service';
 
 const getInitialState = (sidebarId: string, isOpen: boolean = true): ISidebar => {
   return {

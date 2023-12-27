@@ -30,6 +30,11 @@ export const SERVICE_UNAVAILABLE_MESSAGE =
 export const ACCESS_TOKEN = 'access_token';
 
 /**
+ * Access token
+ */
+export const ACCESS_TOKEN_EXPIRED_TIME = 'access_token_expired_time';
+
+/**
  * ID token
  */
 export const ID_TOKEN = 'id_token';
@@ -38,6 +43,11 @@ export const ID_TOKEN = 'id_token';
  * Refresh token
  */
 export const REFRESH_TOKEN = 'refresh_token';
+
+/**
+ * Refresh token
+ */
+export const REFRESH_TOKEN_EXPIRED_TIME = 'refresh_token_expired_time';
 
 /**
  * It keeps the last timestamp of renew token

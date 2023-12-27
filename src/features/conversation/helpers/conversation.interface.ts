@@ -1,7 +1,9 @@
 export interface Conversations {
-  id: string;
-  title: string;
-  createdAt: string;
+  conversation: {
+    id: string;
+    title: string;
+    createdAt: string;
+  };
 }
 
 export interface MessageProps {

@@ -1,4 +1,5 @@
-import { apiPost } from '../../../core/libs/axios';
+import { apiDelete, apiPost } from '../../../core/libs/axios';
+import { getRefreshToken } from '../../../utils/sesstion.ts';
 
 export interface AuthResponse {
   user: {
@@ -20,7 +21,7 @@ export const onLogin = (params: { email: string; password: string }) => {
     email: params.email,
     password: params.password,
   };
-  return apiPost('http://localhost:8989/api/auth/login', { user });
+  return apiPost('/auth/login', { user });
 };
 
 export const onSignup = (params: { email: string; username: string; password: string }) => {
@@ -29,5 +30,16 @@ export const onSignup = (params: { email: string; username: string; password: st
     username: params.username,
     password: params.password,
   };
-  return apiPost('http://localhost:8989/api/auth/register', { user });
+  return apiPost('/auth/register', { user });
+};
+
+export const onRefreshToken = () => {
+  const refreshToken = getRefreshToken();
+  return apiPost('/auth/refresh', {
+    refreshToken,
+  });
+};
+
+export const onLogout = () => {
+  return apiDelete('/auth/logout');
 };

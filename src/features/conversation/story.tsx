@@ -1,4 +1,4 @@
-import { Box, Input, TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import Message from './components/message';
 import { MessageProps } from './helpers/conversation.interface';
 import { conversationStory } from './helpers/mockData';

@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from 'react';
 import { loginFields, onLogin } from './helpers';
 import { FormAction, FormExtra, Input } from '../../components';
 import { AuthResponse } from './helpers/authentication.service.ts';
-import { setCookie } from '../../utils/sesstion.ts';
+import { addCookieToken } from '../../utils/sesstion.ts';
 import { useNavigate } from 'react-router-dom';
 
 interface FieldState {
@@ -31,7 +31,8 @@ export default function Login() {
         password: loginState.password,
       });
 
-      setCookie('accessToken', response.credentials.accessToken);
+      addCookieToken(response);
+
       navigate('/home');
     } catch (err) {
       console.log('Login Failed!');

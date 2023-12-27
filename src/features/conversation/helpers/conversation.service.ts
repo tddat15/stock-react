@@ -1,10 +1,4 @@
-import { apiGet, apiPost } from '../../../core/libs/axios';
-import { conversationList } from './mockData';
-
-export const getListOfConversation = () => {
-  // return apiGet('http://localhost:8989/api/conversation');
-  return conversationList;
-};
+import { apiPost } from '../../../core/libs/axios';
 
 export const createNewConversation = (params: {
   email: string;
@@ -16,5 +10,5 @@ export const createNewConversation = (params: {
     username: params.username,
     password: params.password,
   };
-  return apiPost('http://localhost:8989/api/auth/register', { user });
+  return apiPost('/auth/register', { user });
 };

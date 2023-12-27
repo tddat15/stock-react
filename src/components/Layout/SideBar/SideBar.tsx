@@ -12,9 +12,10 @@ interface Props {
   };
   createConversation: () => void;
   onClick: (item: any) => void;
+  handleLogout: () => void;
 }
 
-const SideBar: React.FC<Props> = ({ items, user, createConversation }) => {
+const SideBar: React.FC<Props> = ({ items, user, createConversation, handleLogout }) => {
   return (
     <div>
       <div className="bg-gray-800 text-white h-screen flex flex-col p-4" style={{ width: '400px' }}>
@@ -45,7 +46,9 @@ const SideBar: React.FC<Props> = ({ items, user, createConversation }) => {
             <AccountInfo {...user} />
           </div>
           <div className="">
-            <Button className="ml-0 hover:bg-red-700 transition">Logout</Button>
+            <Button className="" color="error" onClick={handleLogout}>
+              Logout
+            </Button>
           </div>
         </div>
       </div>
