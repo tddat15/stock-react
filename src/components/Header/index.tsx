@@ -7,13 +7,13 @@ export default function Header({ heading = '', paragraph = '', linkName = '', li
         <img
           alt=""
           className="h-14 w-14"
-          src="https://ik.imagekit.io/pibjyepn7p9/Lilac_Navy_Simple_Line_Business_Logo_CGktk8RHK.png?ik-sdk-version=javascript-1.4.3&updatedAt=1649962071315"
+          src="https://aiapp.org/_next/static/media/logo.4d4e99e2.svg"
         />
       </div>
       <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">{heading}</h2>
       <p className="mt-5 text-center text-sm text-gray-600">
         {paragraph}{' '}
-        <Link to={linkUrl} className="font-medium text-purple-600 hover:text-purple-500">
+        <Link to={linkUrl} className="font-medium text-gray-900 hover:text-gray-500">
           {linkName}
         </Link>
       </p>

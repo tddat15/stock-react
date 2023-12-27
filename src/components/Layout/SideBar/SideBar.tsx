@@ -3,7 +3,7 @@ import ConversationTitle from './ConversationTitle';
 import AccountInfo from './AccountInfor';
 
 interface Props {
-  items: string[];
+  items: any[];
   className?: string;
   open: boolean;
   user: {
@@ -37,16 +37,16 @@ const SideBar: React.FC<Props> = ({ items, user, createConversation, handleLogou
           </Button>
         </div>
         <ul className="flex-1 overflow-y-auto h-full">
-          {items.map((title, index) => (
-            <ConversationTitle key={index} title={title} />
+          {items.map((item, index) => (
+            <ConversationTitle key={index} title={item.title} id={item.id} />
           ))}
         </ul>
-        <div className="flex items-center">
-          <div className="mr-4">
+        <div className="flex items-center justify-between">
+          <div className="">
             <AccountInfo {...user} />
           </div>
           <div className="">
-            <Button className="" color="error" onClick={handleLogout}>
+            <Button style={{ padding: 0 }} color="error" onClick={handleLogout}>
               Logout
             </Button>
           </div>

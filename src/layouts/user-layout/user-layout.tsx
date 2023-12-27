@@ -7,12 +7,12 @@ import { Conversations } from '../../features/conversation/helpers/conversation.
 import {
   createNewConversation,
   getListOfConversation,
-} from '../../features/conversation/helpers/sideBar.service';
-import { getUserData } from '../../features/conversation/helpers/sideBar.service.ts';
+} from '../../features/conversation/helpers/conversation.service';
+import { getUserData } from '../../features/conversation/helpers/conversation.service.ts';
 import {
   CreateConversationResponse,
   SideBarResponse,
-} from '../../features/conversation/helpers/sideBar.interface.ts';
+} from '../../features/conversation/helpers/conversation.interface.ts';
 import { useNavigate } from 'react-router-dom';
 import { onLogout } from '../../features/authentication/helpers/authentication.service.ts';
 import { removeCookieToken } from '../../utils/sesstion.ts';
@@ -24,7 +24,7 @@ interface Props {
 
 const UserLayout: React.FC<Props> = ({ children, sidebar }) => {
   const navigate = useNavigate();
-  const [conversationTitles, setConversationTitles] = React.useState<string[]>([]);
+  const [conversationTitles, setConversationTitles] = React.useState<any[]>([]);
   const [accountInfo, setAccountInfo] = React.useState({
     image: '',
     username: 'Full name',
@@ -70,7 +70,8 @@ const UserLayout: React.FC<Props> = ({ children, sidebar }) => {
   const createConversation = async () => {
     try {
       const newChat: CreateConversationResponse = await createNewConversation();
-      setCurrentConversationid(newChat.conversation.id);
+      setConversationTitles([newChat.conversation, ...conversationTitles]);
+      navigate(`/chat/${newChat.conversation.id}`);
     } catch (err) {
       console.log('Create new Conversation Failed');
     }
@@ -84,7 +85,10 @@ const UserLayout: React.FC<Props> = ({ children, sidebar }) => {
     const fetchConversationTitles = async () => {
       try {
         const response: Conversations[] = await getListOfConversation();
-        const conversationList = response.map((x) => x.conversation.title);
+        const conversationList = response.map((item) => ({
+          title: item.conversation.title,
+          id: item.conversation.id,
+        }));
         setConversationTitles(conversationList);
       } catch (error) {
         console.error('Error fetching conversation titles:', error);

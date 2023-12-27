@@ -33,7 +33,7 @@ export default function Login() {
 
       addCookieToken(response);
 
-      navigate('/home');
+      navigate('/chat');
     } catch (err) {
       console.log('Login Failed!');
     }
